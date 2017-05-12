@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------------------------
-// <copyright file="VSPackage.cs" company="Company">
-//     Copyright (c) Company.  All rights reserved.
+// <copyright file="VSPackage.cs" company="Masaru Tsuchiyama">
+//     Copyright (c) Masaru Tsuchiyama.  All rights reserved.
 // </copyright>
 //------------------------------------------------------------------------------
 
@@ -35,6 +35,7 @@ namespace SetStartupProjectVS
     /// To get loaded into VS, the package must be referred by &lt;Asset Type="Microsoft.VisualStudio.VsPackage" ...&gt; in .vsixmanifest file.
     /// </para>
     /// </remarks>
+    [ProvideAutoLoad(Microsoft.VisualStudio.Shell.Interop.UIContextGuids.SolutionExists)]
     [PackageRegistration(UseManagedResourcesOnly = true)]
     [InstalledProductRegistration("#110", "#112", "1.0", IconResourceID = 400)] // Info on this package for Help/About
     [Guid(VSPackage.PackageGuidString)]
@@ -61,6 +62,39 @@ namespace SetStartupProjectVS
         #region Package Members
 
         /// <summary>
+        /// Get DTE Object
+        /// </summary>
+        public EnvDTE.DTE GetDTE()
+        {
+            return (EnvDTE.DTE)GetService(typeof(SDTE));
+        }
+
+#if DEBUG
+        /// <summary>
+        /// Get OutputWindow
+        /// </summary>
+        public EnvDTE.Window GetOutputWindow(EnvDTE.DTE dte)
+        {
+            return dte.Windows.Item(EnvDTE.Constants.vsWindowKindOutput);
+        }
+
+        /// <summary>
+        /// Add an item to OutputWindow
+        /// </summary>
+        public void AddOutputWindow(string paneName)
+        {
+            var outputWindow = (EnvDTE.OutputWindow)GetOutputWindow(GetDTE()).Object;
+            this.OutputPane = outputWindow.OutputWindowPanes.Add(paneName);
+        }
+#endif
+
+        /// <summary>
+        /// Property For OutputWindow
+        /// </summary>
+        public EnvDTE.OutputWindowPane OutputPane { get; private set; }
+
+
+        /// <summary>
         /// Initialization of the package; this method is called right after the package is sited, so this is the place
         /// where you can put all the initialization code that rely on services provided by VisualStudio.
         /// </summary>
@@ -68,6 +102,10 @@ namespace SetStartupProjectVS
         {
             base.Initialize();
             SetStartupProjectCommand.Initialize(this);
+
+#if DEBUG
+            AddOutputWindow("Set Startup Project");
+#endif
         }
 
         #endregion

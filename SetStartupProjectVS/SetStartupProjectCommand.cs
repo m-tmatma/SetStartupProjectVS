@@ -32,6 +32,26 @@ namespace SetStartupProjectVS
         /// </summary>
         private readonly VSPackage package;
 
+
+        /// <summary>
+        /// control whether an menu item is displayed or not.
+        /// </summary>
+        private void BeforeQueryStatus(object sender, EventArgs e)
+        {
+            OleMenuCommand command = sender as OleMenuCommand;
+            if (command != null)
+            {
+                command.Visible = false;
+
+                var dte = this.package.GetDTE();
+                Array projects = (Array)dte.ActiveSolutionProjects;
+                foreach (EnvDTE.Project project in projects)
+                {
+                    command.Visible = true;
+                }
+            }
+        }
+ 
         /// <summary>
         /// Initializes a new instance of the <see cref="SetStartupProjectCommand"/> class.
         /// Adds our command handlers for menu (commands must exist in the command table file)
@@ -50,7 +70,8 @@ namespace SetStartupProjectVS
             if (commandService != null)
             {
                 var menuCommandID = new CommandID(CommandSet, CommandId);
-                var menuItem = new MenuCommand(this.MenuItemCallback, menuCommandID);
+                var menuItem = new OleMenuCommand(this.MenuItemCallback, menuCommandID);
+                menuItem.BeforeQueryStatus += this.BeforeQueryStatus;
                 commandService.AddCommand(menuItem);
             }
         }
@@ -84,6 +105,43 @@ namespace SetStartupProjectVS
             Instance = new SetStartupProjectCommand(package);
         }
 
+#if DEBUG
+        /// <summary>
+        /// Print to Output Window
+        /// </summary>
+        internal void OutputString(string output)
+        {
+            var outPutPane = this.package.OutputPane;
+            outPutPane.OutputString(output);
+        }
+
+        /// <summary>
+        /// Print to Output Window with Line Ending
+        /// </summary>
+        internal void OutputStringLine(string output)
+        {
+            OutputString(output + Environment.NewLine);
+        }
+
+        /// <summary>
+        /// Clear Output Window
+        /// </summary>
+        internal void ClearOutout()
+        {
+            var outPutPane = this.package.OutputPane;
+            outPutPane.Clear();
+        }
+
+        /// <summary>
+        /// Clear Output Window
+        /// </summary>
+        internal void ActivateOutout()
+        {
+            var outPutPane = this.package.OutputPane;
+            outPutPane.Activate();
+        }
+#endif
+
         /// <summary>
         /// This function is the callback used to execute the command when the menu item is clicked.
         /// See the constructor to see how the menu item is associated with this function using
@@ -93,13 +151,29 @@ namespace SetStartupProjectVS
         /// <param name="e">Event args.</param>
         private void MenuItemCallback(object sender, EventArgs e)
         {
-            string message = string.Format(CultureInfo.CurrentCulture, "Inside {0}.MenuItemCallback()", this.GetType().FullName);
-            string title = "SetStartupProjectCommand";
+            var dte = this.package.GetDTE();
+            var solution = dte.Solution;
 
-            // Show a message box to prove we were here
+#if DEBUG
+            this.ClearOutout();
+            this.ActivateOutout();
+#endif
+            const string title = "Set Startup Project";
+            if (solution.IsDirty)
+            {
+                VsShellUtilities.ShowMessageBox(
+                    this.ServiceProvider,
+                    "Solution is not saved. Please save all before running the command",
+                    title,
+                    OLEMSGICON.OLEMSGICON_INFO,
+                    OLEMSGBUTTON.OLEMSGBUTTON_OK,
+                    OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
+                return;
+            }
+
             VsShellUtilities.ShowMessageBox(
                 this.ServiceProvider,
-                message,
+                "Running the command",
                 title,
                 OLEMSGICON.OLEMSGICON_INFO,
                 OLEMSGBUTTON.OLEMSGBUTTON_OK,
