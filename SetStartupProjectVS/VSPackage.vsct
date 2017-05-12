@@ -61,7 +61,7 @@
         <Parent guid="guidVSPackageCmdSet" id="MyMenuGroup" />
         <Icon guid="guidImages" id="bmpPic1" />
         <Strings>
-          <ButtonText>Set Startup Project</ButtonText>
+          <ButtonText>Set Startup Project by writing to the solution file</ButtonText>
         </Strings>
       </Button>
     </Buttons>
