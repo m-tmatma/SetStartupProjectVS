@@ -3,7 +3,7 @@
   <Metadata>
     <Identity Id="0393f102-9674-4b88-8825-0720360e5be6" Version="1.0" Language="en-US" Publisher="Masaru Tsuchiyama" />
     <DisplayName>SetStartupProjectVS</DisplayName>
-    <Description>Empty VSIX Project.</Description>
+    <Description xml:space="preserve">Set Startup Project in Visual Studio</Description>
   </Metadata>
   <Installation>
     <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[15.0]" />
