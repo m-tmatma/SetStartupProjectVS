@@ -30,14 +30,14 @@ namespace SetStartupProjectVS
         /// <summary>
         /// VS Package that provides this command, not null.
         /// </summary>
-        private readonly Package package;
+        private readonly VSPackage package;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SetStartupProjectCommand"/> class.
         /// Adds our command handlers for menu (commands must exist in the command table file)
         /// </summary>
         /// <param name="package">Owner package, not null.</param>
-        private SetStartupProjectCommand(Package package)
+        private SetStartupProjectCommand(VSPackage package)
         {
             if (package == null)
             {
@@ -79,7 +79,7 @@ namespace SetStartupProjectVS
         /// Initializes the singleton instance of the command.
         /// </summary>
         /// <param name="package">Owner package, not null.</param>
-        public static void Initialize(Package package)
+        public static void Initialize(VSPackage package)
         {
             Instance = new SetStartupProjectCommand(package);
         }
