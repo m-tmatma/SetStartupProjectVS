@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
-    <Identity Id="SetStartupProjectVS.Masaru Tsuchiyama.0393f102-9674-4b88-8825-0720360e5be6" Version="1.0" Language="en-US" Publisher="Masaru Tsuchiyama" />
+    <Identity Id="0393f102-9674-4b88-8825-0720360e5be6" Version="1.0" Language="en-US" Publisher="Masaru Tsuchiyama" />
     <DisplayName>SetStartupProjectVS</DisplayName>
     <Description>Empty VSIX Project.</Description>
   </Metadata>
