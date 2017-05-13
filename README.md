@@ -4,6 +4,10 @@
 - It also changes a startup project saved in .suo file.
 - It uses https://github.com/michaKFromParis/slnStartupProject
 
+# Screenshot
+
+![Visual Studio Plugin which set as StartUp Project](/image/screenshot-en.png?raw=true "screenshot")
+
 # How to Get this
 
 ## 1
@@ -16,8 +20,3 @@
 	> cd SetStartupProjectVS
 	> git submodule init
 	> git submodule update
-
-# Screenshot
-
-![Visual Studio Plugin which set as StartUp Project](/image/screenshot-en.png?raw=true "screenshot")
-
