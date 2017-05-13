@@ -143,6 +143,21 @@ namespace SetStartupProjectVS
 #endif
 
         /// <summary>
+        /// get the first active project
+        /// </summary>
+        /// <returns></returns>
+        private EnvDTE.Project GetFirstActiveProjct()
+        {
+            var dte = this.package.GetDTE();
+            Array projects = (Array)dte.ActiveSolutionProjects;
+            foreach (EnvDTE.Project project in projects)
+            {
+                return project;
+            }
+            return null;
+        }
+
+        /// <summary>
         /// This function is the callback used to execute the command when the menu item is clicked.
         /// See the constructor to see how the menu item is associated with this function using
         /// OleMenuCommandService service and MenuCommand class.
@@ -171,13 +186,11 @@ namespace SetStartupProjectVS
                 return;
             }
 
-            VsShellUtilities.ShowMessageBox(
-                this.ServiceProvider,
-                "Running the command",
-                title,
-                OLEMSGICON.OLEMSGICON_INFO,
-                OLEMSGBUTTON.OLEMSGBUTTON_OK,
-                OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
+            var activeProject = GetFirstActiveProjct();
+            if (activeProject != null)
+            {
+                solution.SolutionBuild.StartupProjects = activeProject.FileName;
+            }
         }
     }
 }
