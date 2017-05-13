@@ -159,6 +159,47 @@ namespace SetStartupProjectVS
         }
 
         /// <summary>
+        /// check if the target Solution, projects, and opened files are changed
+        /// </summary>
+        /// <returns></returns>
+        private bool IsChanged()
+        {
+            var dte = this.package.GetDTE();
+            var solution = dte.Solution;
+
+#if DEBUG
+            OutputStringLine(solution.FullName + " : " + (solution.IsDirty ? "Not Saved" : "Saved"));
+#endif
+            if (solution.IsDirty)
+            {
+                return true;
+            }
+
+            foreach (EnvDTE.Project project in solution.Projects)
+            {
+#if DEBUG
+                OutputStringLine(project.FullName + " : " + (project.IsDirty ? "Not Saved" : "Saved"));
+#endif
+                if (project.IsDirty)
+                {
+                    return true;
+                }
+            }
+
+            foreach (EnvDTE.Document document in dte.Documents)
+            {
+#if DEBUG
+                OutputStringLine(document.FullName + " : " + (document.Saved ? "Saved" : "Not Saved"));
+#endif
+                if (!document.Saved)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
         /// This function is the callback used to execute the command when the menu item is clicked.
         /// See the constructor to see how the menu item is associated with this function using
         /// OleMenuCommandService service and MenuCommand class.
@@ -175,11 +216,11 @@ namespace SetStartupProjectVS
             this.ActivateOutout();
 #endif
             const string title = "Set Startup Project";
-            if (solution.IsDirty)
+            if (IsChanged())
             {
                 VsShellUtilities.ShowMessageBox(
                     this.ServiceProvider,
-                    "Solution is not saved. Please save all before running the command",
+                    "Solution or projects are not saved. Please save all before running the command",
                     title,
                     OLEMSGICON.OLEMSGICON_INFO,
                     OLEMSGBUTTON.OLEMSGBUTTON_OK,
@@ -190,7 +231,14 @@ namespace SetStartupProjectVS
             var activeProject = GetFirstActiveProjct();
             if (activeProject != null)
             {
+#if DEBUG
+                OutputStringLine("Setting " + activeProject.FileName + " As a Startup Project");
+#endif
                 solution.SolutionBuild.StartupProjects = activeProject.FileName;
+
+#if DEBUG
+                OutputStringLine("calling SetStartupProject " + activeProject.Name);
+#endif
                 Parser.SetStartupProject(solution.FullName, activeProject.Name);
             }
         }
