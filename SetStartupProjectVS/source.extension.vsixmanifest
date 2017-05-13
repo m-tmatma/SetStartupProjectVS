@@ -1,9 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
-    <Identity Id="0393f102-9674-4b88-8825-0720360e5be6" Version="1.0" Language="en-US" Publisher="Masaru-Tsuchiyama" />
+    <Identity Id="0393f102-9674-4b88-8825-0720360e5be6" Version="1.001" Language="en-US" Publisher="Masaru-Tsuchiyama" />
     <DisplayName>SetStartupProjectVS</DisplayName>
-    <Description xml:space="preserve">Set Startup Project in Visual Studio</Description>
+    <Description xml:space="preserve">Set a project as Startup Project in Visual Studio.
+This plugin change Startup Project by writing to the solution file.
+It also change Startup Project saved at .suo file.
+After running this plugin, you prompt to reload the solution because the it is changed.
+This plugin usues https://github.com/michaKFromParis/slnStartupProject</Description>
     <MoreInfo>https://github.com/m-tmatma/SetStartupProjectVS</MoreInfo>
     <License>LICENCE.txt</License>
   </Metadata>
