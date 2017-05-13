@@ -25,3 +25,7 @@
 	> cd SetStartupProjectVS
 	> git submodule init
 	> git submodule update
+
+# Website (In Japasese)
+
+- https://m-tmatma.github.io/VC/SetStartupProjectVS.html
