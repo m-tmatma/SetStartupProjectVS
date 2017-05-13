@@ -4,6 +4,11 @@
 - It also changes a startup project saved in .suo file.
 - It uses https://github.com/michaKFromParis/slnStartupProject
 
+# Binary Release
+
+- https://github.com/m-tmatma/SetStartupProjectVS/releases
+- https://marketplace.visualstudio.com/items?itemName=tmatma.SetStartupProjectVS
+
 # Screenshot
 
 ![Visual Studio Plugin which set as StartUp Project](/image/screenshot-en.png?raw=true "screenshot")
