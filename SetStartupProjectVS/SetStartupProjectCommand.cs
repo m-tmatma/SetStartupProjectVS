@@ -9,6 +9,7 @@ using System.ComponentModel.Design;
 using System.Globalization;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
+using slnStartupProjectLibrary;
 
 namespace SetStartupProjectVS
 {
@@ -190,6 +191,7 @@ namespace SetStartupProjectVS
             if (activeProject != null)
             {
                 solution.SolutionBuild.StartupProjects = activeProject.FileName;
+                Parser.SetStartupProject(solution.FullName, activeProject.Name);
             }
         }
     }

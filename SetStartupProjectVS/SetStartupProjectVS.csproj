@@ -172,6 +172,12 @@
       <ManifestResourceName>VSPackage</ManifestResourceName>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\slnStartupProject\projects\vs2013\slnStartupProjectLibrary\slnStartupProjectLibrary.csproj">
+      <Project>{a01e2f2d-ccd1-46b4-82d7-eb4c7a503004}</Project>
+      <Name>slnStartupProjectLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
