@@ -1,5 +1,8 @@
 # SetStartupProjectVS
 
+[![Build status](https://ci.appveyor.com/api/projects/status/ubv1v66jmligw2dm/branch/master?svg=true)](https://ci.appveyor.com/project/MasaruTsuchiyama//setstartupprojectvs/branch/master)
+
+
 - This is a plugin which changes a project as Starup Project by writing to the solution file.
 - It also changes a startup project saved in .suo file.
 - It uses https://github.com/michaKFromParis/slnStartupProject
