@@ -10,7 +10,7 @@
 # Binary Release
 
 - https://github.com/m-tmatma/SetStartupProjectVS/releases
-- https://marketplace.visualstudio.com/items?itemName=tmatma.SetStartupProjectVS
+- https://marketplace.visualstudio.com/search?term=publisher%3A%22tmatma%22&target=VS&category=All%20categories&vsVersion=&sortBy=Relevance
 
 # Screenshot
 
