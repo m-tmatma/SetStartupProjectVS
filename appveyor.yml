@@ -1,0 +1,19 @@
+version: 1.0.{build}
+image: Visual Studio 2017
+configuration:
+- Debug
+- Release
+clone_depth: 2
+before_build:
+- cmd: >-
+    git submodule init
+
+    git submodule update
+
+    nuget restore
+build:
+  project: SetStartupProjectVS.sln
+  verbosity: minimal
+artifacts:
+- path: SetStartupProjectVS\bin\Release\*.vsix
+  name: vsix
