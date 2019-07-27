@@ -15,5 +15,5 @@ build:
   project: SetStartupProjectVS.sln
   verbosity: minimal
 artifacts:
-- path: SetStartupProjectVS\bin\Release\*.vsix
+- path: SetStartupProjectVS\bin\$(configuration)\*.vsix
   name: vsix
